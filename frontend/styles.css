@@ -1,0 +1,62 @@
+:root {
+  --bg: #0f172a; --card: #1e293b; --borda: #334155; --fundo2: #0b1220;
+  --accent: #fb923c; --eb: #38bdf8; --text: #e2e8f0; --muted: #94a3b8;
+  --ok: #4ade80; --warn: #fbbf24; --err: #f87171;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+header, main, footer { max-width: 1040px; margin: 0 auto; padding: 1rem 1.5rem; }
+header h1 { margin: 0 0 .25rem; font-size: 1.5rem; }
+.foco { color: var(--muted); margin: 0; }
+.banner-demo { margin-top: .75rem; padding: .5rem .75rem; border-radius: 6px; background: var(--warn); color: #1f2937; font-weight: 700; }
+.painel { background: var(--card); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border: 1px solid var(--borda); }
+.painel h2 { margin-top: 0; font-size: 1.1rem; }
+.painel h3 { font-size: .95rem; color: var(--muted); margin: 1rem 0 .5rem; }
+.destaque { border-color: var(--eb); }
+.instrucao { color: var(--muted); font-size: .9rem; }
+.controles { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+input, select, button { font-size: .95rem; padding: .55rem .8rem; border-radius: 6px; border: 1px solid #475569; background: var(--fundo2); color: var(--text); }
+input { min-width: 260px; }
+button { background: var(--accent); color: #0b1220; font-weight: 700; cursor: pointer; border: none; }
+button.secundario { background: #475569; color: var(--text); }
+button:hover { filter: brightness(1.08); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, select:focus-visible, tr:focus-visible { outline: 2px solid var(--eb); outline-offset: 2px; }
+.status { min-height: 1.2rem; font-size: .9rem; color: var(--muted); }
+.status.erro { color: var(--err); }
+.status.ok { color: var(--ok); }
+.metricas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.metrica { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 8px; padding: .75rem 1rem; min-width: 130px; display: flex; flex-direction: column; }
+.metrica.erro { border-color: var(--err); }
+.metrica .rotulo { color: var(--muted); font-size: .8rem; }
+.metrica .valor { font-size: 1.6rem; font-weight: 700; }
+.chips { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+.chip { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 999px; padding: .2rem .7rem; font-size: .85rem; }
+.tabela-rolavel { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--borda); }
+th { color: var(--muted); font-weight: 600; }
+tbody tr.clicavel { cursor: pointer; }
+tbody tr.clicavel:hover { background: var(--fundo2); }
+tbody tr.sel { background: #172033; }
+.vazio { color: var(--muted); }
+td.vazio { text-align: center; padding: 1.5rem; }
+.estado { font-weight: 700; }
+.estado.SUCCEEDED { color: var(--ok); }
+.estado.RUNNING, .estado.CREATED { color: var(--eb); }
+.estado.FAILED, .estado.TIMED_OUT, .estado.ABORTED { color: var(--err); }
+.resumo { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; font-size: .9rem; margin: .5rem 0 0; }
+.resumo dt { color: var(--muted); }
+.resumo dd { margin: 0; word-break: break-all; }
+.colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 760px) { .colunas { grid-template-columns: 1fr; } }
+.timeline { list-style: none; padding-left: 0; margin: 0; }
+.timeline li { padding: .4rem .7rem; border-left: 3px solid var(--accent); margin-bottom: .35rem; background: var(--fundo2); border-radius: 0 6px 6px 0; font-size: .88rem; }
+.timeline.eb li { border-left-color: var(--eb); }
+.timeline li.falha { border-left-color: var(--err); }
+.timeline .hora { color: var(--muted); font-size: .78rem; display: block; }
+footer p { color: var(--muted); font-size: .8rem; }
+code { background: var(--fundo2); padding: .1rem .35rem; border-radius: 4px; }input.curto { min-width: 90px; width: 90px; }
+.metrica.destaque { border-color: var(--warn); }
+td.num { font-variant-numeric: tabular-nums; }
+td.alerta { color: var(--warn); font-weight: 700; }.timeline li.erro { border-left-color: var(--err); }

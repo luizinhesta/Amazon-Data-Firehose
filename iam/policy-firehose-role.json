@@ -1,0 +1,39 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GravarNoBucketDeDados",
+      "Effect": "Allow",
+      "Action": [
+        "s3:AbortMultipartUpload",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::integracao-lab04-dados-<ACCOUNT_ID>",
+        "arn:aws:s3:::integracao-lab04-dados-<ACCOUNT_ID>/*"
+      ]
+    },
+    {
+      "Sid": "InvocarATransformadora",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:InvokeFunction",
+        "lambda:GetFunctionConfiguration"
+      ],
+      "Resource": [
+        "arn:aws:lambda:us-east-1:<ACCOUNT_ID>:function:integracao-lab04-transform-fn",
+        "arn:aws:lambda:us-east-1:<ACCOUNT_ID>:function:integracao-lab04-transform-fn:*"
+      ]
+    },
+    {
+      "Sid": "RegistrarErrosDeEntrega",
+      "Effect": "Allow",
+      "Action": "logs:PutLogEvents",
+      "Resource": "arn:aws:logs:us-east-1:<ACCOUNT_ID>:log-group:/aws/kinesisfirehose/integracao-lab04-fh:log-stream:*"
+    }
+  ]
+}

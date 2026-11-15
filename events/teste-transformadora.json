@@ -1,0 +1,9 @@
+{
+  "invocationId": "teste-console",
+  "deliveryStreamArn": "arn:aws:firehose:us-east-1:123456789012:deliverystream/integracao-lab04-fh",
+  "region": "us-east-1",
+  "records": [
+    { "recordId": "rec-valido", "approximateArrivalTimestamp": 1762200000000, "data": "eyJzY2hlbWFWZXJzaW9uIjoiMS4wIiwiY29ycmVsYXRpb25JZCI6ImxhYjA0LXRlc3RlLWNvbnNvbGUiLCJzYWxlSWQiOiJzYWxlLTAwMDEiLCJhbW91bnQiOjMyMC41LCJjaGFubmVsIjoid2ViIiwib2NjdXJyZWRBdCI6IjIwMjYtMTEtMDNUMjA6MDA6MDArMDA6MDAifQo=" },
+    { "recordId": "rec-invalido", "approximateArrivalTimestamp": 1762200000001, "data": "eyJzY2hlbWFWZXJzaW9uIjoiMS4wIiwiY29ycmVsYXRpb25JZCI6ImxhYjA0LXRlc3RlLWNvbnNvbGUiLCJzYWxlSWQiOiJzYWxlLTAwMDIiLCJhbW91bnQiOiJJTlZBTElETyIsImNoYW5uZWwiOiJhcHAiLCJvY2N1cnJlZEF0IjoiMjAyNi0xMS0wM1QyMDowMDowMSswMDowMCJ9Cg==" }
+  ]
+}

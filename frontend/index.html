@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CSP: so este dominio e a HTTP API da regiao us-east-1. Em outra regiao, troque us-east-1 abaixo. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.execute-api.us-east-1.amazonaws.com; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <title>LAB-04 — Entrega em S3 (Amazon Data Firehose)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>LAB-04 — Entrega e Transformação de Vendas no S3</h1>
+    <p class="foco">Serviço em foco: <strong>Amazon Data Firehose</strong> (ingestão direta, buffer, transformação Lambda, erros, prefixos)</p>
+    <p id="modo-banner" class="banner-demo" hidden>MODO DEMONSTRAÇÃO — dados sintéticos, não refletem a AWS</p>
+  </header>
+
+  <main>
+    <section class="painel" aria-labelledby="titulo-enviar">
+      <h2 id="titulo-enviar">Enviar vendas</h2>
+      <p class="instrucao">Envia ao Firehose com <code>PutRecordBatch</code>. Aceito pela API <strong>não</strong> é entregue: o Firehose grava no S3 depois do buffer (cerca de 1 minuto neste lab).</p>
+      <div class="controles">
+        <label for="qtd">Quantidade (10–500)</label>
+        <input id="qtd" type="number" min="10" max="500" value="100" class="curto" />
+        <label for="pct">% inválidos (0–50)</label>
+        <input id="pct" type="number" min="0" max="50" value="10" class="curto" />
+        <button id="btn-enviar" type="button">Enviar</button>
+      </div>
+      <p id="msg-enviar" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="painel" aria-labelledby="titulo-metricas">
+      <h2 id="titulo-metricas">Firehose no CloudWatch (últimos 60 min)</h2>
+      <div class="metricas">
+        <div class="metrica"><span class="rotulo">Execuções</span><span id="m-total" class="valor">—</span></div>
+        <div class="metrica"><span class="rotulo">Aceitos (API, total)</span><span id="m-aceitos" class="valor">—</span></div>
+        <div class="metrica"><span class="rotulo">IncomingRecords</span><span id="m-incoming" class="valor">—</span></div>
+        <div class="metrica destaque"><span class="rotulo">DeliveryToS3.Records</span><span id="m-delivered" class="valor">—</span></div>
+        <div class="metrica"><span class="rotulo">DataFreshness (s)</span><span id="m-fresh" class="valor">—</span></div>
+      </div>
+      <p class="instrucao">"—" significa sem dado no CloudWatch (as métricas chegam com alguns minutos de atraso).</p>
+    </section>
+
+    <section class="painel" aria-labelledby="titulo-execucoes">
+      <h2 id="titulo-execucoes">Execuções</h2>
+      <p class="instrucao">Clique em uma linha para ver o que chegou ao S3.</p>
+      <p id="msg-api" class="status" role="status" aria-live="polite"></p>
+      <div class="tabela-rolavel">
+        <table>
+          <thead><tr><th>correlationId</th><th>Aceitos</th><th>Inválidos gerados</th><th>Criado em</th></tr></thead>
+          <tbody id="runs-body"><tr><td colspan="4" class="vazio">Nenhuma execução carregada.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="painel destaque" aria-labelledby="titulo-detalhe">
+      <h2 id="titulo-detalhe">Aceitos × entregues × com erro</h2>
+      <p id="det-titulo" class="status">Selecione uma execução.</p>
+      <div class="metricas">
+        <div class="metrica"><span class="rotulo">Aceitos (API)</span><span id="d-aceitos" class="valor">—</span></div>
+        <div class="metrica destaque"><span class="rotulo">Entregues (S3, dados)</span><span id="d-entregues" class="valor">—</span></div>
+        <div class="metrica erro"><span class="rotulo">Com erro (S3, erros)</span><span id="d-erros" class="valor">—</span></div>
+        <div class="metrica"><span class="rotulo">Atraso até o 1º arquivo (s)</span><span id="d-atraso" class="valor">—</span></div>
+      </div>
+      <p id="d-situacao" class="status"></p>
+      <h3>Arquivos no S3 com registros desta execução</h3>
+      <ol id="d-arquivos" class="timeline"></ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>LAB-04 — projeto independente. Dados sintéticos, sem PII. Saída JSON + GZIP.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
